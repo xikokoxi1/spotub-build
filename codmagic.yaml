@@ -27,9 +27,9 @@ workflows:
           echo "DISABLE_SPOTIFY_IMAGES=$DISABLE_SPOTIFY_IMAGES" >> .env
           dart run build_runner build --delete-conflicting-outputs
           rm .env
-      - name: Build AppBundle with Increased Memory
+      - name: Build AppBundle with Increased Memory and Debug
         script: |
           export GRADLE_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError"
-          flutter build appbundle --debug --stacktrace
+          flutter build appbundle --debug --stacktrace --verbose
     artifacts:
-      - build/app/outputs/bundle/**/*.aab
+      - build/app/outputs/bundle/devDebug/*.aab
