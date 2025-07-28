@@ -2,13 +2,29 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    configurations.all {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds' // Desativa cache para módulos dinâmicos
+            cacheDynamicVersionsFor 0, 'seconds' // Desativa cache para versões dinâmicas
+        }
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.incremental = true
+            options.fork = true
+            options.forkOptions.jvmArgs = ['-Xmx2048m'] // Aumenta a memória para 2GB
+        }
     }
 }
 
 rootProject.buildDir = '../build'
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(':app')
 }
