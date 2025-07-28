@@ -1,0 +1,15 @@
+workflows:
+  build:
+    name: Build Android
+    scripts:
+      - name: Install Dependencies
+        script: |
+          flutter pub get
+      - name: Generate Code
+        script: |
+          dart run build_runner build --delete-conflicting-outputs
+      - name: Build AppBundle
+        script: |
+          flutter build appbundle --debug
+    artifacts:
+      - build/app/outputs/bundle/**/*.aab
