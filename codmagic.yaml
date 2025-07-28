@@ -13,6 +13,9 @@ workflows:
       flutter: stable
       android_sdk: latest
     scripts:
+      - name: Clean Project
+        script: |
+          flutter clean
       - name: Install Dependencies
         script: |
           flutter pub get
@@ -29,7 +32,7 @@ workflows:
           rm .env
       - name: Build AppBundle with Increased Memory and Debug
         script: |
-          export GRADLE_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError"
+          # Usando a memória definida no gradle.properties (-Xmx4096m)
           flutter build appbundle --debug --stacktrace --verbose
     artifacts:
       - build/app/outputs/bundle/devDebug/*.aab
