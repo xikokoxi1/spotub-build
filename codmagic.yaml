@@ -30,9 +30,8 @@ workflows:
           echo "DISABLE_SPOTIFY_IMAGES=$DISABLE_SPOTIFY_IMAGES" >> .env
           dart run build_runner build --delete-conflicting-outputs
           rm .env
-      - name: Build AppBundle with Increased Memory and Debug
+      - name: Build AppBundle with Debug
         script: |
-          # Usando a memória definida no gradle.properties (-Xmx4096m)
           flutter build appbundle --debug --stacktrace --verbose
     artifacts:
       - build/app/outputs/bundle/devDebug/*.aab
