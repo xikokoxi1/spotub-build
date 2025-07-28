@@ -83,3 +83,4 @@ tm.json
 
 android/build
 android/app/.cxx
+.env 
