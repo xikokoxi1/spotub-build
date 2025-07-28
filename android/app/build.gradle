@@ -32,9 +32,7 @@ def composeVersion = "1.4.8"
 
 android {
     namespace "oss.krtirtho.spotube"
-    
     compileSdkVersion 35
-
     ndkVersion = "27.0.12077973"
 
     compileOptions {
@@ -120,20 +118,18 @@ flutter {
 }
 
 def glanceVersion = "1.1.1"
+
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
-
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     // other deps so just ignore
-    implementation 'com.android.support:multidex:2.0.1'
-
+    implementation 'androidx.multidex:multidex:2.0.1' // Substituído por AndroidX Multidex
     implementation "androidx.glance:glance-appwidget:$glanceVersion"
     implementation "androidx.glance:glance-appwidget-preview:$glanceVersion"
     implementation "androidx.glance:glance-preview:$glanceVersion"
     implementation "androidx.glance:glance-material3:$glanceVersion"
     implementation "androidx.glance:glance-material:$glanceVersion"
     implementation "androidx.work:work-runtime-ktx:2.8.1"
-
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
     implementation 'com.google.code.gson:gson:2.11.0'
 }
