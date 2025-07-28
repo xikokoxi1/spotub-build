@@ -16,7 +16,7 @@ gradle.projectsEvaluated {
     tasks.withType(JavaCompile) {
         options.incremental = true
         options.fork = true
-        options.forkOptions.jvmArgs = ['-Xmx2048m'] // Aumenta a memória para 2GB (pode ser ajustado se necessário)
+        options.forkOptions.jvmArgs = ['-Xmx10240m'] // Aumenta a memória para 10GB (pode ser ajustado se necessário)
     }
 }
 
