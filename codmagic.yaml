@@ -10,14 +10,17 @@ workflows:
         RELEASE_CHANNEL: "$RELEASE_CHANNEL"
         HIDE_DONATIONS: "$HIDE_DONATIONS"
         DISABLE_SPOTIFY_IMAGES: "$DISABLE_SPOTIFY_IMAGES"
-        JAVA_OPTS: "-Xmx8g"  # Aumenta o heap size para 8GB
-        GRADLE_OPTS: "-Xmx8g"  # Aumenta o heap size para o Gradle
+        JAVA_OPTS: "-Xmx8g"
+        GRADLE_OPTS: "-Xmx8g"
       flutter: stable
       android_sdk: latest
     scripts:
       - name: Clean Project
         script: |
           flutter clean
+      - name: Clean Gradle Cache
+        script: |
+          ./gradlew cleanBuildCache
       - name: Install Dependencies
         script: |
           flutter pub get
@@ -35,9 +38,9 @@ workflows:
       - name: Build AppBundle with Debug
         script: |
           flutter build appbundle --debug --stacktrace --verbose
-          echo "Checking build directory..."
-          ls -la /Users/builder/clone/build/app/outputs/bundle/
-          ls -la /Users/builder/clone/build/
+          echo "Checking build directories..."
+          ls -la /Users/builder/clone/build/app/outputs/bundle/ || echo "Directory not found or empty"
+          ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
     artifacts:
       - build/app/outputs/bundle/*.aab
       - build/**/*.aab
