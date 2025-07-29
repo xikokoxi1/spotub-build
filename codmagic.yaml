@@ -1,5 +1,5 @@
 workflows:
-  build:
+  build_android:
     name: Build Android
     environment:
       vars:
@@ -33,5 +33,6 @@ workflows:
       - name: Build AppBundle with Debug
         script: |
           flutter build appbundle --debug --stacktrace --verbose
+          ls -la build/app/outputs/bundle/
     artifacts:
-      - build/app/outputs/bundle/devDebug/*.aab
+      - build/app/outputs/bundle/*.aab
