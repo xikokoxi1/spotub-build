@@ -10,8 +10,8 @@ workflows:
         RELEASE_CHANNEL: "$RELEASE_CHANNEL"
         HIDE_DONATIONS: "$HIDE_DONATIONS"
         DISABLE_SPOTIFY_IMAGES: "$DISABLE_SPOTIFY_IMAGES"
-        JAVA_OPTS: "-Xmx6g"  # Aumenta o heap size para 6GB
-        GRADLE_OPTS: "-Xmx6g"  # Aumenta o heap size para o Gradle
+        JAVA_OPTS: "-Xmx8g"  # Aumenta o heap size para 8GB
+        GRADLE_OPTS: "-Xmx8g"  # Aumenta o heap size para o Gradle
       flutter: stable
       android_sdk: latest
     scripts:
