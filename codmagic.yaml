@@ -22,6 +22,9 @@ workflows:
       - name: Clean Gradle Cache
         script: |
           ./gradlew cleanBuildCache
+      - name: Force Gradle Clean
+        script: |
+          ./gradlew clean
       - name: Install Dependencies
         script: |
           flutter pub get
@@ -38,7 +41,7 @@ workflows:
           rm .env
       - name: Build AppBundle with Debug
         script: |
-          flutter build appbundle --debug
+          ./gradlew bundleDebug --stacktrace --info
           echo "Checking build directories..."
           ls -la /Users/builder/clone/build/app/outputs/bundle/ || echo "Directory not found or empty"
           ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
