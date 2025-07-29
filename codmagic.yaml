@@ -10,9 +10,9 @@ workflows:
         RELEASE_CHANNEL: "$RELEASE_CHANNEL"
         HIDE_DONATIONS: "$HIDE_DONATIONS"
         DISABLE_SPOTIFY_IMAGES: "$DISABLE_SPOTIFY_IMAGES"
-        JAVA_OPTS: "-Xmx8192m"  # Explicitamente 8192 MB (8GB)
-        GRADLE_OPTS: "-Xmx8192m"  # Explicitamente 8192 MB (8GB)
-        _JAVA_OPTIONS: "-Xmx8192m"  # Adiciona uma variável de ambiente extra para o Java
+        JAVA_OPTS: "-Xmx8192m"
+        GRADLE_OPTS: "-Xmx8192m"
+        _JAVA_OPTIONS: "-Xmx8192m"
       flutter: stable
       android_sdk: latest
     scripts:
@@ -41,6 +41,7 @@ workflows:
           flutter build appbundle --debug
           echo "Checking build directories..."
           ls -la /Users/builder/clone/build/app/outputs/bundle/ || echo "Directory not found or empty"
+          ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
           ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
     artifacts:
       - build/app/outputs/bundle/*.aab
