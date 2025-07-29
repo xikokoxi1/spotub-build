@@ -10,8 +10,9 @@ workflows:
         RELEASE_CHANNEL: "$RELEASE_CHANNEL"
         HIDE_DONATIONS: "$HIDE_DONATIONS"
         DISABLE_SPOTIFY_IMAGES: "$DISABLE_SPOTIFY_IMAGES"
-        JAVA_OPTS: "-Xmx8g"
-        GRADLE_OPTS: "-Xmx8g"
+        JAVA_OPTS: "-Xmx8192m"  # Explicitamente 8192 MB (8GB)
+        GRADLE_OPTS: "-Xmx8192m"  # Explicitamente 8192 MB (8GB)
+        _JAVA_OPTIONS: "-Xmx8192m"  # Adiciona uma variável de ambiente extra para o Java
       flutter: stable
       android_sdk: latest
     scripts:
