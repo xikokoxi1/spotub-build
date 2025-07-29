@@ -33,6 +33,9 @@ workflows:
       - name: Build AppBundle with Debug
         script: |
           flutter build appbundle --debug --stacktrace --verbose
-          ls -la build/app/outputs/bundle/
+          echo "Checking build directory..."
+          ls -la /Users/builder/clone/build/app/outputs/bundle/
+          ls -la /Users/builder/clone/build/
     artifacts:
       - build/app/outputs/bundle/*.aab
+      - build/**/*.aab
