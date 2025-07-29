@@ -25,6 +25,13 @@ workflows:
       - name: Force Gradle Clean
         script: |
           ./gradlew clean
+      - name: Clear Pub Cache
+        script: |
+          rm -rf ~/.pub-cache
+      - name: Clear Gradle Global Cache
+        script: |
+          ./gradlew --stop
+          rm -rf ~/.gradle/caches/
       - name: Install Dependencies
         script: |
           flutter pub get
