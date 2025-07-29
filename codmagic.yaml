@@ -37,7 +37,7 @@ workflows:
           rm .env
       - name: Build AppBundle with Debug
         script: |
-          flutter build appbundle --debug --stacktrace --verbose
+          flutter build appbundle --debug
           echo "Checking build directories..."
           ls -la /Users/builder/clone/build/app/outputs/bundle/ || echo "Directory not found or empty"
           ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
