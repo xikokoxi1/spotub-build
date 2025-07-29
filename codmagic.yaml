@@ -12,7 +12,7 @@ workflows:
         DISABLE_SPOTIFY_IMAGES: "$DISABLE_SPOTIFY_IMAGES"
         JAVA_OPTS: "-Xmx8192m"
         GRADLE_OPTS: "-Xmx8192m"
-        _JAVA_OPTIONS: "-Xmx8192m"
+        _JAVA_OPTIONS: "-Xmx6192m"
       flutter: stable
       android_sdk: latest
     scripts:
