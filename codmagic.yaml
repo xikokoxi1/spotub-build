@@ -46,9 +46,13 @@ workflows:
           echo "DISABLE_SPOTIFY_IMAGES=$DISABLE_SPOTIFY_IMAGES" >> .env
           dart run build_runner build --delete-conflicting-outputs
           rm .env
-      - name: Build AppBundle with Debug
+      - name: Check Gradle Environment
         script: |
-          flutter build appbundle --debug --stacktrace --verbose
+          ./gradlew --version
+          echo "Gradle environment checked"
+      - name: Build AppBundle (Release)
+        script: |
+          flutter build appbundle --release --stacktrace --verbose
           echo "Checking build directories..."
           ls -la /Users/builder/clone/build/app/outputs/bundle/ || echo "Directory not found or empty"
           ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
