@@ -1,3 +1,5 @@
+import 'package:package_info_plus/package_info_plus.dart';
+
 part of '../spotify.dart';
 
 class SyncedLyricsNotifier extends FamilyAsyncNotifier<SubtitleSimple, Track?> {
@@ -29,6 +31,7 @@ class SyncedLyricsNotifier extends FamilyAsyncNotifier<SubtitleSimple, Track?> {
         provider: "Spotify",
       );
     }
+
     final linesRaw =
         Map.castFrom<dynamic, dynamic, String, dynamic>(res.data)["lyrics"]
             ?["lines"] as List?;
@@ -54,7 +57,6 @@ class SyncedLyricsNotifier extends FamilyAsyncNotifier<SubtitleSimple, Track?> {
   /// Thanks for their generous public API
   Future<SubtitleSimple> getLRCLibLyrics() async {
     final packageInfo = await PackageInfo.fromPlatform();
-
     final res = await globalDio.getUri(
       Uri(
         scheme: "https",
@@ -70,7 +72,7 @@ class SyncedLyricsNotifier extends FamilyAsyncNotifier<SubtitleSimple, Track?> {
       options: Options(
         headers: {
           "User-Agent":
-              "Spotube v${packageInfo.version} (https://github.com/KRTirtho/spotube)"
+              "Spotube v${packageInfo.version}[](https://github.com/KRTirtho/spotube)"
         },
         responseType: ResponseType.json,
       ),
@@ -87,7 +89,6 @@ class SyncedLyricsNotifier extends FamilyAsyncNotifier<SubtitleSimple, Track?> {
     }
 
     final json = res.data as Map<String, dynamic>;
-
     final syncedLyricsRaw = json["syncedLyrics"] as String?;
     final syncedLyrics = syncedLyricsRaw?.isNotEmpty == true
         ? Lrc.parse(syncedLyricsRaw!)
@@ -135,7 +136,6 @@ class SyncedLyricsNotifier extends FamilyAsyncNotifier<SubtitleSimple, Track?> {
             ..where((tbl) => tbl.trackId.equals(track.id!)))
           .map((row) => row.data)
           .getSingleOrNull();
-
       SubtitleSimple? lyrics = cachedLyrics;
 
       final token = await spotify.invoke((api) => api.getCredentials());
@@ -182,13 +182,10 @@ final syncedLyricsProvider =
 final syncedLyricsMapProvider =
     FutureProvider.family((ref, Track? track) async {
   final syncedLyrics = await ref.watch(syncedLyricsProvider(track).future);
-
   final isStaticLyrics =
       syncedLyrics.lyrics.every((l) => l.time == Duration.zero);
-
   final lyricsMap = syncedLyrics.lyrics
       .map((lyric) => {lyric.time.inSeconds: lyric.text})
       .reduce((accumulator, lyricSlice) => {...accumulator, ...lyricSlice});
-
   return (static: isStaticLyrics, lyricsMap: lyricsMap);
 });
