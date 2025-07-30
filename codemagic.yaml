@@ -50,13 +50,14 @@ workflows:
         script: |
           ./gradlew --version
           echo "Gradle environment checked"
-      - name: Build AppBundle (Release)
+      - name: Make sure build directory exists
+        script: mkdir -p build/app/outputs/flutter-apk/
+      - name: Build APK (Release)
         script: |
-          flutter build appbundle --release --stacktrace --verbose
+          flutter build apk --release --stacktrace --verbose
           echo "Checking build directories..."
           ls -la /Users/builder/clone/build/app/outputs/bundle/ || echo "Directory not found or empty"
           ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
           ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
     artifacts:
-      - build/app/outputs/bundle/*.aab
-      - build/**/*.aab
+      - build/app/outputs/flutter-apk/app-release.apk
