@@ -19,17 +19,11 @@ workflows:
       - name: Clean Project
         script: |
           flutter clean
+          rm -rf ~/.pub-cache
       - name: Clean Gradle Cache
         script: |
           ./gradlew cleanBuildCache
-      - name: Force Gradle Clean
-        script: |
           ./gradlew clean
-      - name: Clear Pub Cache
-        script: |
-          rm -rf ~/.pub-cache
-      - name: Clear Gradle Global Cache
-        script: |
           ./gradlew --stop
           rm -rf ~/.gradle/caches/
       - name: Install Dependencies
@@ -50,13 +44,14 @@ workflows:
         script: |
           ./gradlew --version
           echo "Gradle environment checked"
-      - name: Make sure build directory exists
-        script: mkdir -p build/app/outputs/flutter-apk/
+      - name: Ensure Build Directory
+        script: |
+          mkdir -p build/app/outputs/flutter-apk/
       - name: Build APK (Release)
         script: |
           flutter build apk --release --stacktrace --verbose
           echo "Checking build directories..."
-          ls -la /Users/builder/clone/build/app/outputs/flutter-apk/ || echo "Directory not found or empty"
+          ls -la /Users/builder/clone/build/app/outputs/flutter-apk/ || echo "APK directory not found or empty"
           ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
           ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
     artifacts:
