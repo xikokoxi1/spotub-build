@@ -20,6 +20,7 @@ workflows:
         script: |
           flutter clean
           rm -rf ~/.pub-cache
+          rm -rf /Users/builder/clone/build/
       - name: Clean Gradle Cache
         script: |
           ./gradlew cleanBuildCache
@@ -46,7 +47,7 @@ workflows:
           echo "Gradle environment checked"
       - name: Ensure Build Directory
         script: |
-          mkdir -p build/app/outputs/flutter-apk/
+          mkdir -p /Users/builder/clone/build/app/outputs/flutter-apk/
       - name: Build APK (Release)
         script: |
           flutter build apk --release --stacktrace --verbose
