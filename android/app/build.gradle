@@ -49,7 +49,7 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    build SNIP buildFeatures {
+    buildFeatures {
         compose true
     }
 
