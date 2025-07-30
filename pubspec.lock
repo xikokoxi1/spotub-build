@@ -941,9 +941,11 @@ packages:
   flutter_new_pipe_extractor:
     dependency: "direct main"
     description:
-      path: "plugins/flutter_new_pipe_extractor"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "015386a364dfd731c0f4f2decfbb1e6674d7d217"
+      url: "https://github.com/xikokoxi1/flutter_new_pipe_extractor.git"
+    source: git
     version: "0.1.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
