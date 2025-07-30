@@ -56,7 +56,7 @@ workflows:
         script: |
           flutter build apk --release --stacktrace --verbose
           echo "Checking build directories..."
-          ls -la /Users/builder/clone/build/app/outputs/bundle/ || echo "Directory not found or empty"
+          ls -la /Users/builder/clone/build/app/outputs/flutter-apk/ || echo "Directory not found or empty"
           ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
           ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
     artifacts:
