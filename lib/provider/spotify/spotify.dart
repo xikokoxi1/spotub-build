@@ -15,7 +15,6 @@ import 'package:dio/dio.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:lrc/lrc.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:spotify/spotify.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // ignore: depend_on_referenced_packages, implementation_imports
