@@ -60,4 +60,4 @@ workflows:
           ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
           ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/flutter-apk/app-release.apk.....
