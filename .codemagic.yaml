@@ -1,0 +1,63 @@
+workflows:
+  build_android:
+    name: Build Android
+    environment:
+      vars:
+        SPOTIFY_SECRETS: "$SPOTIFY_SECRETS"
+        LASTFM_API_KEY: "$LASTFM_API_KEY"
+        LASTFM_API_SECRET: "$LASTFM_API_SECRET"
+        ENABLE_UPDATE_CHECK: "$ENABLE_UPDATE_CHECK"
+        RELEASE_CHANNEL: "$RELEASE_CHANNEL"
+        HIDE_DONATIONS: "$HIDE_DONATIONS"
+        DISABLE_SPOTIFY_IMAGES: "$DISABLE_SPOTIFY_IMAGES"
+        JAVA_OPTS: "-Xmx8192m"
+        GRADLE_OPTS: "-Xmx8192m"
+        _JAVA_OPTIONS: "-Xmx8192m"
+      flutter: stable
+      android_sdk: latest
+    scripts:
+      - name: Clean Project
+        script: |
+          flutter clean
+      - name: Clean Gradle Cache
+        script: |
+          ./gradlew cleanBuildCache
+      - name: Force Gradle Clean
+        script: |
+          ./gradlew clean
+      - name: Clear Pub Cache
+        script: |
+          rm -rf ~/.pub-cache
+      - name: Clear Gradle Global Cache
+        script: |
+          ./gradlew --stop
+          rm -rf ~/.gradle/caches/
+      - name: Install Dependencies
+        script: |
+          flutter pub get
+      - name: Generate Code
+        script: |
+          echo "SPOTIFY_SECRETS=$SPOTIFY_SECRETS" > .env
+          echo "LASTFM_API_KEY=$LASTFM_API_KEY" >> .env
+          echo "LASTFM_API_SECRET=$LASTFM_API_SECRET" >> .env
+          echo "ENABLE_UPDATE_CHECK=$ENABLE_UPDATE_CHECK" >> .env
+          echo "RELEASE_CHANNEL=$RELEASE_CHANNEL" >> .env
+          echo "HIDE_DONATIONS=$HIDE_DONATIONS" >> .env
+          echo "DISABLE_SPOTIFY_IMAGES=$DISABLE_SPOTIFY_IMAGES" >> .env
+          dart run build_runner build --delete-conflicting-outputs
+          rm .env
+      - name: Check Gradle Environment
+        script: |
+          ./gradlew --version
+          echo "Gradle environment checked"
+      - name: Make sure build directory exists
+        script: mkdir -p build/app/outputs/flutter-apk/
+      - name: Build APK (Release)
+        script: |
+          flutter build apk --release --stacktrace --verbose
+          echo "Checking build directories..."
+          ls -la /Users/builder/clone/build/app/outputs/flutter-apk/ || echo "Directory not found or empty"
+          ls -la /Users/builder/clone/build/app/ || echo "App directory contents"
+          ls -la /Users/builder/clone/build/ || echo "Build directory not found or empty"
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
